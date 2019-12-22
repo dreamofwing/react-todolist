@@ -17,38 +17,27 @@ const TodoApp = () => {
   ]);
   const nextId = useRef(3);
 
-  const onInsert = useCallback(
-    text => {
-      setTodos(
-        todos.concat({
-          id: nextId.current,
-          text,
-          done: false
-        })
-      );
+  const onInsert = useCallback(text => {
+    setTodos(todos =>
+      todos.concat({
+        id: nextId.current,
+        text,
+        done: false
+      })
+    );
 
-      nextId.current += 1;
-    },
-    [todos]
-  );
+    nextId.current += 1;
+  }, []);
 
-  const onToggle = useCallback(
-    id => {
-      setTodos(
-        todos.map(todo =>
-          todo.id === id ? { ...todo, done: !todo.done } : todo
-        )
-      );
-    },
-    [todos]
-  );
+  const onToggle = useCallback(id => {
+    setTodos(todos =>
+      todos.map(todo => (todo.id === id ? { ...todo, done: !todo.done } : todo))
+    );
+  }, []);
 
-  const onRemove = useCallback(
-    id => {
-      setTodos(todos.filter(todo => todo.id !== id));
-    },
-    [todos]
-  );
+  const onRemove = useCallback(id => {
+    setTodos(todos => todos.filter(todo => todo.id !== id));
+  }, []);
 
   return (
     <>
